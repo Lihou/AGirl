@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion '24.0.3'
+
+    defaultConfig {
+        applicationId "com.android.lihou.agirl"
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
+            resValue "string", "app_name", "AGirl"
+        }
+
+        debug {
+            applicationIdSuffix '.debug'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
+            resValue "string", "app_name", "AGirl debug"
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(
+                    output.outputFile.parent,
+                    output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
+        }
+    }
+
+}
+
+ext {
+    supportLibVersion = '24.2.0'
+    retrofitLibVersion = '2.0.2'
+    okhttpLibVersion = '3.2.0'
+    leakcanaryLibVersion = '1.5'
+    butterknifeLibVersion = '8.0.1'
+    rxjavaLibVersion = '1.1.7'
+    rxandroidLibVersion = '1.2.0'
+    glideLibVersion = '3.7.0'
+    glideokhttp3integrationLibVersion = '1.4.0@aar'
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile "com.android.support:appcompat-v7:${supportLibVersion}"
+    compile "com.android.support:support-annotations:${supportLibVersion}"
+    compile "com.android.support:design:${supportLibVersion}"
+    compile "com.android.support:palette-v7:${supportLibVersion}"
+    compile "com.android.support:recyclerview-v7:${supportLibVersion}"
+    compile "com.android.support:customtabs:${supportLibVersion}"
+    compile "com.android.support:support-annotations:${supportLibVersion}"
+    compile "com.squareup.okhttp3:okhttp:${okhttpLibVersion}"
+    compile "com.squareup.okhttp3:logging-interceptor:${okhttpLibVersion}"
+    compile("com.squareup.retrofit2:retrofit:${retrofitLibVersion}") {
+        exclude module: 'okhttp'
+    }
+    compile "com.squareup.retrofit2:converter-gson:${retrofitLibVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${retrofitLibVersion}"
+    compile "io.reactivex:rxandroid:${rxandroidLibVersion}"
+    compile "io.reactivex:rxjava:${rxjavaLibVersion}"
+    compile "com.github.bumptech.glide:glide:${glideLibVersion}"
+    compile("com.github.bumptech.glide:okhttp3-integration:${glideokhttp3integrationLibVersion}") {
+        exclude module: 'okhttp'
+    }
+    compile "com.jakewharton:butterknife:${butterknifeLibVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeLibVersion}"
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${leakcanaryLibVersion}"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakcanaryLibVersion}"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakcanaryLibVersion}"
+}

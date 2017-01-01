@@ -1,0 +1,24 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AGirl"
+        parent="Base">
+    </style>
+
+    <style name="Base"
+        parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+
+    <style name="AGirl.Main">
+        <item name="android:windowBackground">@color/background_light</item>
+    </style>
+
+    <style name="AGirl.Detail">
+        <item name="android:windowBackground">@color/background_light</item>
+    </style>
+
+</resources>
